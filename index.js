@@ -24,3 +24,16 @@ const pool = new Pool({
   password: 'derek123', // Sesuaikan dengan password database masing-masing
   port: 5432,
 });
+
+// GET ALL (Membaca semua data biodata)
+app.get('/biodata', (req, res) => {
+  console.log("TEST DATA:");
+  pool.query('SELECT * FROM biodata ORDER BY id')
+    .then(result => {
+      res.send(result.rows);
+    })
+    .catch(err => {
+      console.error(err);
+      res.status(500).send('Internal Server Error');
+    });
+});
